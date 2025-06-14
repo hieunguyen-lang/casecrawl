@@ -53,15 +53,23 @@ ipcMain.handle('start-crawl', async (event, args) => {
     }
   }
   // Ghi file input mới (nếu có)
+  let inputPath = path.join(__dirname, inputFileName);
+  let userDataDir = app.getPath('userData');
   if (inputContent) {
-    const inputPath = path.join(__dirname, inputFileName);
+    // Nếu đang chạy bản đóng gói, lưu vào userData
+    inputPath = path.join(userDataDir, inputFileName);
     fs.writeFileSync(inputPath, inputContent, 'utf-8');
   }
   return new Promise((resolve, reject) => {
     console.log('proxyList truyền vào child:', proxyList);
     console.log('chromePath truyền vào child:', chromePath);
     console.log('profileCount truyền vào child:', profileCount);
-    const crawl = fork(path.join(__dirname, 'puppeter_fake_finger_print.js'), [profileCount, inputFileName, '', chromePath, proxyList], { stdio: ['inherit', 'inherit', 'inherit', 'ipc'] });
+    // Truyền đường dẫn file input tuyệt đối và userDataDir cho puppeter_fake_finger_print.js
+    const crawl = fork(
+      path.join(__dirname, 'puppeter_fake_finger_print.js'),
+      [profileCount, inputPath, userDataDir, chromePath, proxyList],
+      { stdio: ['inherit', 'inherit', 'inherit', 'ipc'] }
+    );
     crawl.on('message', msg => {
       if (msg && msg.type === 'leads-distribution') {
         // Gửi danh sách leads đã chia về renderer (UI)
@@ -87,12 +95,34 @@ ipcMain.handle('start-crawl', async (event, args) => {
 
 // Lắng nghe IPC từ renderer để kill Chrome và xuất file
 ipcMain.handle('kill-chrome-export', async (event) => {
-  // Kill toàn bộ process Chrome (Windows)
   const { spawn } = require('child_process');
-  return new Promise((resolve) => {
-    const kill = spawn('taskkill', ['/F', '/IM', 'chrome.exe']);
-    kill.on('close', (code) => {
-      resolve({ code });
+  const os = require('os');
+  try {
+    // 1. Kill Chrome trước
+    await new Promise((resolve, reject) => {
+      const kill = spawn('taskkill', ['/F', '/IM', 'chrome.exe']);
+      kill.on('close', (code) => {
+        if (code === 0) resolve();
+        else reject(new Error(`Failed to kill Chrome with code ${code}`));
+      });
     });
-  });
+
+    // 2. Copy file case_detail_gzip.txt ra Desktop với timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const desktopPath = path.join(os.homedir(), 'Desktop');
+    const outputFilename = `case_detail_gzip_${timestamp}.txt`;
+    const outputPath = path.join(desktopPath, outputFilename);
+    const sourcePath = path.join(__dirname, 'case_detail_gzip.txt');
+    if (fs.existsSync(sourcePath)) {
+      fs.copyFileSync(sourcePath, outputPath);
+      mainWindow.webContents.send('export-done', { destPath: outputPath });
+      return { success: true, path: outputPath };
+    } else {
+      throw new Error('Không tìm thấy file case_detail_gzip.txt');
+    }
+  } catch (error) {
+    console.error('Error during kill and export:', error);
+    mainWindow.webContents.send('export-error', { error: error.message });
+    return { success: false, error: error.message };
+  }
 });

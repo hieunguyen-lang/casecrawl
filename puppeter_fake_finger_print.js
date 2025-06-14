@@ -7,10 +7,6 @@ const path = require('path');
 const xml2js = require('xml2js');
 const os = require('os');
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // Fake fingerprint giống thật nhất theo thông tin bạn cung cấp
 const fakeFingerprint = {
   platform: 'Win32',
@@ -143,6 +139,46 @@ function generateFingerprint(idx) {
   };
 }
 
+/**
+ * Encode HTML thành base64(gzip(XML)), trong đó XML chứa base64(gzip(HTML))
+ * @param {string} html - Nội dung HTML gốc
+ * @param {object} options - Thông tin bổ sung cho XML (uri, timestamp, các thẻ khác)
+ * @returns {string} base64(gzip(XML))
+ */
+function encodeHtmlToBase64GzipXml(html, options = {}) {
+  const zlib = require('zlib');
+
+  // Gzip + base64 cho HTML
+  const gzippedHtml = zlib.gzipSync(html, { level: 9 });
+  const base64Html = gzippedHtml.toString('base64');
+
+  // Tạo timestamp đúng định dạng
+  function getTimestamp() {
+    const now = new Date();
+    const ms = String(now.getMilliseconds()).padStart(3, '0') + '0000';
+    const iso = now.toISOString();
+    return iso.replace(/\.(\d+)Z$/, `.${ms}Z`);
+  }
+  const timestamp = options.timestamp || getTimestamp();
+  const uri = options.uri || 'https://casesearch.courts.state.md.us/casesearch/inquiryByCaseNum.jis';
+  const otherTags = options.otherTags || '';
+
+  // Tạo XML
+  const xml = `<?xml version="1.0" encoding="utf-16"?>
+      <CollectionRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Uri>${uri}</Uri>
+        <TimeStamp>${timestamp}</TimeStamp>
+        ${otherTags}
+        <Base64EncodedGZipCompressedContent>${base64Html}</Base64EncodedGZipCompressedContent>
+      </CollectionRecord>
+      `;
+
+  // Gzip + base64 cho XML
+  const gzippedXml = zlib.gzipSync(Buffer.from(xml, 'utf-8'), { level: 9 });
+  
+  
+  return gzippedXml.toString('base64');
+}
 // Sinh fingerprint cho từng profile
 const fingerprints = profiles.map((_, idx) => generateFingerprint(idx));
 
@@ -243,10 +279,30 @@ async function waitForReady(page, maxRetry = 10, interval = 1000 ) {
     });
   }
 
-  // Ghi HEADER ROW vào file case_detail_gzip.txt
-  const header = `HEADER ROW - CompressionType="GZip" - Encoding="base64" - LeadListGuid="${LeadListGuid}"
+  // Lấy đường dẫn thư mục userData từ argv (nếu có)
+const userDataDir = process.argv[4] || process.env.USERDATA_DIR || null;
+const outputFileName = 'case_detail_gzip.txt';
+let outputFilePath = userDataDir ? path.join(userDataDir, outputFileName) : outputFileName;
+if (!userDataDir || (typeof process.resourcesPath === 'string' && outputFilePath.startsWith(process.resourcesPath))) {
+  // Nếu không truyền userDataDir hoặc đang ghi vào thư mục app, chuyển sang Desktop
+  outputFilePath = path.join(os.homedir(), 'Desktop', outputFileName);
+}
+console.log('userDataDir:', userDataDir);
+console.log('Final outputFilePath:', outputFilePath);
+
+// Ghi HEADER ROW vào file case_detail_gzip.txt
+const header = `HEADER ROW - CompressionType="GZip" - Encoding="base64" - LeadListGuid="${LeadListGuid}"
 `;
-  fs.writeFileSync('case_detail_gzip.txt', header, 'utf-8');
+const dir = require('path').dirname(outputFilePath);
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir, { recursive: true });
+}
+try {
+  require('fs').writeFileSync(outputFilePath, header, 'utf-8');
+  console.log('Đã ghi header ra file:', outputFilePath);
+} catch (err) {
+  console.error('Lỗi ghi header:', outputFilePath, err.message);
+}
 
   const extensionPath = path.resolve('./my_extenstion');
   // Hàm crawl cho 1 profile, thêm tham số vị trí cửa sổ
@@ -535,14 +591,18 @@ async function waitForReady(page, maxRetry = 10, interval = 1000 ) {
           found = true;
         } catch (e) {
           console.log(`Không tìm thấy kết quả cho case: ${caseNumber}`);
-          // Lấy HTML của trang chi tiết, gzip, base64 và ghi ra file txt (không lưu file html)
+          // Lấy HTML của trang chi tiết, double encode: HTML -> base64 -> gzip -> base64 và ghi ra file txt
           const detailHtml = await page.content();
-          const gzipped = zlib.gzipSync(detailHtml);
-          const base64 = gzipped.toString('base64');
+          // const htmlBase64 = Buffer.from(detailHtml, 'utf-8').toString('base64');
+          // const gzipped = zlib.gzipSync(htmlBase64);
+          const base64 = encodeHtmlToBase64GzipXml(detailHtml);
+          const xml = zlib.gunzipSync(Buffer.from(base64, 'base64')).toString('utf-8');
+          console.log(xml);
           // Lấy thời gian crawl hiện tại
           const crawlTime = new Date().toLocaleString('en-US', { hour12: true });
           // Ghi theo format: id|thời gian|base64, mỗi dòng 1 case
-          fs.appendFileSync('case_detail_gzip.txt', `${caseId}|${crawlTime}|${base64}\n`, 'utf-8');
+          
+          fs.appendFileSync(outputFilePath, `${caseId}|${crawlTime}|${base64}\n`, 'utf-8');
           // Gửi log lỗi lên Electron nếu có
           if (process.send) {
             process.send({
@@ -562,14 +622,15 @@ async function waitForReady(page, maxRetry = 10, interval = 1000 ) {
             page.click('#caseList .caseLink')
           ]);
           console.log('Đã click vào link đầu tiên trong bảng kết quả');
-          // Lấy HTML của trang chi tiết, gzip, base64 và ghi ra file txt (không lưu file html)
+          // Lấy HTML của trang chi tiết, double encode: HTML -> base64 -> gzip -> base64 và ghi ra file txt
           const detailHtml = await page.content();
-          const gzipped = zlib.gzipSync(detailHtml);
-          const base64 = gzipped.toString('base64');
+          // const htmlBase64 = Buffer.from(detailHtml, 'utf-8').toString('base64');
+          // const gzipped = zlib.gzipSync(htmlBase64);
+          const base64 = encodeHtmlToBase64GzipXml(detailHtml);
           // Lấy thời gian crawl hiện tại
           const crawlTime = new Date().toLocaleString('en-US', { hour12: true });
           // Ghi theo format: id|thời gian|base64, mỗi dòng 1 case
-          fs.appendFileSync('case_detail_gzip.txt', `${caseId}|${crawlTime}|${base64}\n`, 'utf-8');
+          fs.appendFileSync(outputFilePath, `${caseId}|${crawlTime}|${base64}\n`, 'utf-8');
           console.log('Đã ghi file case_detail_gzip.txt với nội dung id|thời gian|base64');
           // Gửi log đã xong từng case lên Electron (nếu chạy dưới child_process)
           if (process.send) {
@@ -595,6 +656,7 @@ async function waitForReady(page, maxRetry = 10, interval = 1000 ) {
           
         } else {
           console.error('Loi khong xac dinh khi crawl:', err.message);
+          process.exit(0);
         }
       }
     }
@@ -626,7 +688,7 @@ await Promise.all(
   const destPath = path.join(desktopDir, `case_detail_gzip_${timestamp}.txt`);
   console.log('Đường dẫn Desktop:', desktopDir);
   try {
-    fs.copyFileSync('case_detail_gzip.txt', destPath);
+    fs.copyFileSync(outputFilePath, destPath);
     console.log('Đã copy file case_detail_gzip.txt ra Desktop:', destPath);
     if (process.send) {
       process.send({

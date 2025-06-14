@@ -9,8 +9,8 @@
       margin: 0;
       padding: 0;
       width: 100vw;
-      min-width: 0;
-      min-height: 0;
+      min-width: 340px;
+      min-height: 420px;
       box-sizing: border-box;
       background: #0f0f1a;
     }
@@ -21,8 +21,8 @@
       padding: 0;
       width: 100vw;
       height: 100vh;
-      min-width: 0;
-      min-height: 0;
+      min-width: 340px;
+      min-height: 420px;
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -31,8 +31,8 @@
       flex-direction: row;
       width: 100vw;
       height: 100vh;
-      min-width: 0;
-      min-height: 0;
+      min-width: 340px;
+      min-height: 420px;
       margin: 0;
       padding: 0;
       background: #0f0f1a;
@@ -44,6 +44,7 @@
     #sidebar {
       width: 180px;
       min-width: 120px;
+      min-height: 420px;
       background: #1c1c28;
       color: #fff;
       display: flex;
@@ -54,7 +55,7 @@
       border-radius: 0;
       box-shadow: 2px 0 12px #2f80ed88;
       height: 100vh;
-      min-height: 0;
+      overflow: hidden;
     }
     #mainContent {
       flex: 1;
@@ -64,8 +65,8 @@
       overflow-y: auto;
       border-left: 1.5px solid #2c2c3c;
       height: 100vh;
-      min-height: 0;
-      min-width: 0;
+      min-width: 220px;
+      min-height: 420px;
       padding: 0 0 0 0;
     }
     #crawlTabContent, #proxyTabContent {
@@ -155,6 +156,8 @@
       overflow: auto;
       border: 1.5px solid #2c2c3c;
       box-shadow: 0 2px 8px #2f80ed88;
+      min-width: 220px;
+      min-height: 80px;
     }
     #caseLog {
       margin-top: 24px;
@@ -167,6 +170,8 @@
       border-radius: 10px;
       box-shadow: 0 2px 8px #2f80ed88;
       border: 1.5px solid #2c2c3c;
+      min-width: 220px;
+      min-height: 80px;
     }
     #caseLogTable {
       width: 100%;
@@ -205,6 +210,8 @@
       border-radius: 10px;
       box-shadow: 0 2px 8px #d32f2faa;
       border: 1.5px solid #d32f2f;
+      min-width: 220px;
+      min-height: 80px;
     }
     #caseErrorTable {
       width: 100%;
@@ -252,22 +259,14 @@
       box-shadow: 0 2px 8px #2f80ed88;
     }
     @media (max-width: 900px) {
-      .container { max-width: 100vw; padding: 0; }
-      #leadsResult, #caseLog, #caseErrorLog { padding: 6px; }
-      h2 { font-size: 1.3rem; }
-      #sidebar { width: 120px; }
-      .sidebar-tab { padding: 10px 10px; font-size: 0.98rem; }
-      #crawlTabContent > div[style*='display: flex'] { flex-direction: column !important; gap: 0 !important; }
-      #caseLog, #caseErrorLog { max-width: 100vw !important; min-width: 0 !important; }
+      .container { min-width: 260px; min-height: 320px; }
+      #sidebar { min-width: 60px; }
+      #mainContent { min-width: 120px; }
     }
     @media (max-width: 600px) {
-      .container { max-width: 100vw; padding: 0; }
-      #leadsResult, #caseLog, #caseErrorLog { padding: 2px; }
-      h2 { font-size: 1.1rem; }
-      #sidebar { width: 80px; }
-      .sidebar-tab { padding: 8px 4px; font-size: 0.88rem; }
-      #crawlTabContent > div[style*='display: flex'] { flex-direction: column !important; gap: 0 !important; }
-      #caseLog, #caseErrorLog { max-width: 100vw !important; min-width: 0 !important; }
+      .container { min-width: 180px; min-height: 220px; }
+      #sidebar { min-width: 40px; }
+      #mainContent { min-width: 80px; }
     }
   </style>
 </head>
@@ -282,26 +281,9 @@
       <div id="crawlTabContent">
         <h2>Hieu Nguyen Auto Tool</h2>
         <div class="status" id="status" style="margin-bottom:10px;"></div>
-        <form id="crawlForm">
-          <label for="profileCount">Số lượng profile Chrome song song:</label>
-          <input type="number" id="profileCount" name="profileCount" min="1" max="10" value="3" required />
-          <label for="extKey">Nhập KEY cho extension:</label>
-          <input type="text" id="extKey" name="extKey" placeholder="Nhập KEY..." required />
-          <label for="inputFile">Chọn file input.txt hoặc XML chứa CaseKey:</label>
-          <input type="file" id="inputFile" name="inputFile" accept=".txt,.xml" required />
-          <div style="margin-bottom:10px;">
-            <label for="chromePath" style="color:#b0b0c0;">Đường dẫn Chrome (executablePath):</label>
-            <input id="chromePath" type="text" style="width:420px;padding:4px 8px;border-radius:4px;border:1px solid #2c2c3c;background:#181828;color:#fff;" value="C:\Program Files\Google\Chrome\Application\chrome.exe" />
-          </div>
-          <div style="margin-bottom: 10px; display: flex; gap: 12px; align-items: center;">
-            <button id="btnStartCrawl" type="submit">Bắt đầu Crawl</button>
-            <button id="btnKillChrome" type="button" class="btn-gray">Kill Chrome & Xuất file</button>
-          </div>
-        </form>
-        <div id="totalCaseInfo" style="text-align:center;color:#b0b0c0;font-size:1.08rem;margin:10px 0 10px 0;"></div>
-        <div id="leadsResult"></div>
-        <div style="display: flex; flex-direction: row; gap: 24px; width: 100%; margin-bottom: 10px; flex-wrap: wrap;">
-          <div id="caseLog" style="flex:1 1 0; min-width:320px; max-width:60vw;">
+        <!-- Đưa phần log lên trên -->
+        <div style="display: flex; flex-direction: row; gap: 24px; width: 100%; margin-bottom: 18px; flex-wrap: wrap;">
+          <div id="caseLog" style="flex:1 1 0; min-width:320px; max-width:60vw; border:2.5px solid #2f80ed; box-shadow:0 4px 16px #2f80ed55; background:#181828;">
             <div style="font-weight:bold;margin-bottom:6px;font-size:15px;letter-spacing:1px;color:#fff;">Lịch sử thành công</div>
             <table id="caseLogTable">
               <thead>
@@ -310,7 +292,7 @@
               <tbody></tbody>
             </table>
           </div>
-          <div id="caseErrorLog" style="flex:1 1 0; min-width:320px; max-width:40vw;">
+          <div id="caseErrorLog" style="flex:1 1 0; min-width:320px; max-width:40vw; border:2.5px solid #d32f2f; box-shadow:0 4px 16px #d32f2faa; background:#2a1818;">
             <div style="font-weight:bold;margin-bottom:6px;font-size:15px;letter-spacing:1px;color:#ff4d4d;">Danh sách case lỗi</div>
             <table id="caseErrorTable">
               <thead>
@@ -320,7 +302,39 @@
             </table>
           </div>
         </div>
-        <div style="margin-bottom: 10px;"></div>
+        <div id="leadsResult" style="margin-bottom: 10px;"></div>
+        <!-- Form nhập liệu dàn ngang, text nhỏ, chia nhiều hàng, nút riêng 1 hàng, dàn đều các field -->
+        <form id="crawlForm" style="display:flex; flex-direction:column; gap:8px; max-width:100%; margin:0; background:#181828; border-radius:10px; box-shadow:0 2px 8px #2f80ed33; padding:10px 10px 8px 10px; border:1.5px solid #2c2c3c; font-size:0.95em;">
+          <div style="display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; justify-content:space-between; width:100%;">
+            <div style="display:flex; flex-direction:column; gap:2px; flex:1 1 0; min-width:110px; max-width:180px;">
+              <label for="profileCount" style="font-size:0.97em;">Số profile Chrome:</label>
+              <input type="number" id="profileCount" name="profileCount" min="1" max="10" value="3" required style="width:100%;min-width:70px;max-width:120px;font-size:0.97em;padding:5px 7px;" />
+            </div>
+            <div style="display:flex; flex-direction:column; gap:2px; flex:1 1 0; min-width:120px; max-width:180px;">
+              <label for="extKey" style="font-size:0.97em;">KEY extension:</label>
+              <input type="text" id="extKey" name="extKey" placeholder="Nhập KEY..." required style="width:100%;min-width:90px;max-width:250px;font-size:0.97em;padding:5px 7px;" />
+            </div>
+            <div style="display:flex; flex-direction:column; gap:2px; flex:1 1 0; min-width:120px; max-width:180px;">
+              <label for="inputFile" style="font-size:0.97em;">File input.txt/XML:</label>
+              <input type="file" id="inputFile" name="inputFile" accept=".txt,.xml" required style="width:100%;min-width:90px;max-width:250px;font-size:0.97em;padding:5px 7px;" />
+            </div>
+            <div style="display:flex; flex-direction:column; gap:2px; flex:1 1 0; min-width:150px; max-width:220px;">
+              <label for="chromePath" style="color:#b0b0c0;font-size:0.97em;">Chrome path:</label>
+              <input id="chromePath" type="text" style="width:100%;min-width:100px;max-width:200px;font-size:0.97em;padding:5px 7px;border-radius:4px;border:1px solid #2c2c3c;background:#181828;color:#fff;" value="C:\Program Files\Google\Chrome\Application\chrome.exe" />
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:row; gap:8px; align-items:center; justify-content:center; margin-top:4px;">
+            <button id="btnStartCrawl" type="submit" style="font-size:0.98em;">Bắt đầu Crawl</button>
+            <button id="btnKillChrome" type="button" class="btn-gray" style="font-size:0.98em;">Kill Chrome & Xuất file</button>
+          </div>
+        </form>
+        <div id="totalCaseInfo" style="text-align:center;color:#b0b0c0;font-size:1.08rem;margin:10px 0 10px 0;"></div>
+        <!-- Thêm nút và input để decode file gzip base64 -->
+        <div style="margin: 24px 0 0 0; padding: 12px; background: #181828; border-radius: 10px; box-shadow: 0 2px 8px #2f80ed33; border: 1.5px solid #2c2c3c; max-width: 520px;">
+          <label for="decodeFileInput" style="color:#b0b0c0;font-size:1.08em;">Chọn file case_detail_gzip.txt để decode & xem:</label>
+          <input type="file" id="decodeFileInput" accept=".txt" style="margin: 0 12px 0 0;" />
+          <button id="btnDecodeView" type="button" style="font-size:0.98em;">Decode & Xem</button>
+        </div>
       </div>
       <!-- Tab: Proxy (dev) -->
       <div id="proxyTabContent" style="display:none; color: #b0b0c0;">
@@ -342,8 +356,43 @@
     const form = document.getElementById('crawlForm');
     const statusDiv = document.getElementById('status');
     const leadsResult = document.getElementById('leadsResult');
+
+    // Function để lưu thông tin người dùng
+    function saveUserSettings() {
+      const settings = {
+        profileCount: document.getElementById('profileCount').value,
+        extKey: document.getElementById('extKey').value,
+        chromePath: document.getElementById('chromePath').value,
+        lastSaved: new Date().toISOString()
+      };
+      localStorage.setItem('userSettings', JSON.stringify(settings));
+    }
+
+    // Function để load thông tin người dùng
+    function loadUserSettings() {
+      const settings = localStorage.getItem('userSettings');
+      if (settings) {
+        const parsed = JSON.parse(settings);
+        document.getElementById('profileCount').value = parsed.profileCount || 3;
+        document.getElementById('extKey').value = parsed.extKey || '';
+        document.getElementById('chromePath').value = parsed.chromePath || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+      }
+    }
+
+    // Load settings khi mở app
+    loadUserSettings();
+
+    // Lưu settings sau mỗi lần submit form
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      saveUserSettings(); // Lưu settings trước khi submit
+
+      // Reset bảng log thành công và lỗi
+      document.getElementById('caseLogTable').querySelector('tbody').innerHTML = '';
+      document.getElementById('caseErrorTable').querySelector('tbody').innerHTML = '';
+      caseLogCount = 0;
+      caseErrorCount = 0;
+
       const profileCount = parseInt(document.getElementById('profileCount').value, 10);
       const extKey = document.getElementById('extKey').value.trim();
       const fileInput = document.getElementById('inputFile');
@@ -488,6 +537,76 @@
     document.getElementById('tabProxy').addEventListener('click', function() {
       proxyListEl.value = localStorage.getItem('proxyList') || '';
     });
+    // Decode gzip base64 file and view HTML
+    document.getElementById('btnDecodeView').onclick = function() {
+      const fileInput = document.getElementById('decodeFileInput');
+      if (!fileInput.files || !fileInput.files[0]) {
+        alert('Vui lòng chọn file case_detail_gzip.txt!');
+        return;
+      }
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function() {
+        const lines = reader.result.split(/\r?\n/).filter(Boolean);
+        // Bỏ dòng header nếu có
+        const dataLines = lines.filter(line => !line.startsWith('HEADER ROW'));
+        // Tạo HTML danh sách case
+        let html = '<h3>Kết quả decode:</h3><ul style="max-height:400px;overflow:auto;">';
+        dataLines.forEach((line, idx) => {
+          // Nếu có dấu | thì tách như cũ, nếu không thì tách theo space (lấy trường cuối làm base64)
+          if (line.includes('|')) {
+            const firstPipe = line.indexOf('|');
+            const secondPipe = line.indexOf('|', firstPipe + 1);
+            if (firstPipe === -1 || secondPipe === -1) return;
+            const caseId = line.substring(0, firstPipe);
+            const crawlTime = line.substring(firstPipe + 1, secondPipe);
+            const base64 = line.substring(secondPipe + 1);
+            html += `<li style='margin-bottom:8px;'><b>CaseID:</b> ${caseId} <b>Time:</b> ${crawlTime} <button onclick=\"window.showDecodedHtml('${encodeURIComponent(base64)}', '${caseId}')\">Xem HTML</button></li>`;
+          } else {
+            // Tách theo space, lấy trường cuối làm base64
+            const parts = line.trim().split(/\s+/);
+            if (parts.length < 3) return;
+            const base64 = parts.pop();
+            const crawlTime = parts.pop();
+            const caseId = parts.join(' ');
+            html += `<li style='margin-bottom:8px;'><b>CaseID:</b> ${caseId} <b>Time:</b> ${crawlTime} <button onclick=\"window.showDecodedHtml('${encodeURIComponent(base64)}', '${caseId}')\">Xem HTML</button></li>`;
+          }
+        });
+        html += '</ul>';
+        // Mở tab mới và ghi nội dung
+        const win = window.open('', '_blank');
+        win.document.write('<html><head><title>Decoded Cases</title></head><body style="background:#181828;color:#fff;font-family:sans-serif;">'+html+'</body></html>');
+        // Hàm showDecodedHtml để giải nén và hiển thị HTML
+        win.showDecodedHtml = function(base64, caseId) {
+        try {
+          // Bước 1: base64 decode + gunzip ra XML
+          const gzippedXml = Uint8Array.from(atob(decodeURIComponent(base64)), c => c.charCodeAt(0));
+          const xml = pako.ungzip(gzippedXml, { to: 'string' });
+
+          // Bước 2: lấy nội dung trong thẻ <Base64EncodedGZipCompressedContent>
+          const match = xml.match(/<Base64EncodedGZipCompressedContent>([\s\S]*?)<\/Base64EncodedGZipCompressedContent>/);
+          if (!match) throw new Error('Không tìm thấy thẻ Base64EncodedGZipCompressedContent');
+          const base64Html = match[1].trim();
+
+          // Bước 3: base64 decode + gunzip ra HTML gốc
+          const gzippedHtml = Uint8Array.from(atob(base64Html), c => c.charCodeAt(0));
+          let htmlBuffer = pako.ungzip(gzippedHtml, { to: 'string' });
+
+          // Sửa link CSS/JS thành tuyệt đối (giống fixHtmlLinks)
+          const baseUrl = 'https://myeclerk.myorangeclerk.com';
+          htmlBuffer = htmlBuffer.replace(/href="\/(Content|bundles|Scripts|Images|DocView)[^"']*"/g, match => match.replace('href="/', `href="${baseUrl}/`));
+          htmlBuffer = htmlBuffer.replace(/src="\/(Content|bundles|Scripts|Images|DocView)[^"']*"/g, match => match.replace('src="/', `src="${baseUrl}/`));
+          const htmlWin = window.open('', '_blank');
+          htmlWin.document.write(htmlBuffer);
+          htmlWin.document.title = 'CaseID: ' + caseId;
+        } catch (e) {
+          alert('Lỗi giải nén: ' + e.message);
+        }
+      };
+      };
+      reader.readAsText(file);
+    };
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
 </body>
 </html>

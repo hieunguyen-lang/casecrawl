@@ -1,4 +1,8 @@
 {
+  "name": "casecrawl",
+  "version": "1.0.0",
+  "description": "Tool crawl case tự động bằng Electron",
+  "author": "Hieu Nguyen",
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
@@ -10,10 +14,28 @@
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "electron": "^36.4.0"
+    "electron": "^36.4.0",
+    "electron-builder": "^24.8.0"
   },
   "main": "main.js",
-"scripts": {
-  "start": "electron ."
-}
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.hieunk.casecrawl",
+    "productName": "Hieu Nguyen Auto Tool",
+    "files": [
+      "**/*",
+      "!node_modules/.cache"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    }
+  }
 }
