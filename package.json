@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "puppeteer": "^24.10.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "electron": "^36.4.0"
+  },
+  "main": "main.js",
+"scripts": {
+  "start": "electron ."
+}
+}

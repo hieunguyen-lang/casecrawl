@@ -1,0 +1,43 @@
+{
+  "api_key": "OMO_Z3AJVTTFJ7VHHBSTDLAON6BRS1YHCOD9NSIDF3BHNVBTN4GCJ44B9XBPDPN3UY1749818604",
+  "power_on": true,
+  "tiktok": {
+    "delayClick": 500,
+    "delaySwipe": 15,
+    "loop": false,
+    "isActive": true
+  },
+  "funcaptcha": {
+    "delayClick": 100,
+    "loop": false,
+    "isActive": true,
+    "maxImageCaptcha": 10000
+  },
+  "zalo": {
+    "delayClick": 100,
+    "loop": true,
+    "isActive": true
+  },
+  "shopee": {
+    "delaySwipe": 15,
+    "loop": true,
+    "isActive": true
+  },
+  "reCaptchav2": {
+    "delayClick": 1000,
+    "loop": false,
+    "isActive": true,
+    "useToken": false
+  },
+  "amzn": {
+    "delayClick": 100,
+    "loop": true,
+    "isActive": true
+  },
+  "geetest": {
+    "delayClick": 500,
+    "delaySwipe": 15,
+    "loop": true,
+    "isActive": true
+  }
+}

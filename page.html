@@ -1,0 +1,821 @@
+<!DOCTYPE html><html lang="en" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths js " style=""><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Orange County Clerk of Courts Records Search</title>
+
+
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="/bundles/jquery?v=3kVq6GNiUWHCwukxvdFpx5M8YstdzXDfM9Ogzy26UYc1"></script>
+
+    <link href="/Content/css?v=V8SI3RWspeDEsrFmsi_MSUVyhqwyT3Hx47I3X03VNqA1" rel="stylesheet">
+
+    <script src="/bundles/modernizr?v=FkGM2ahQT_s1_lJWOAK4Kuc4JMorI4buRSjs3adTwYk1"></script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-78732002-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-78732002-2');
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    
+
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-EJBJPGW7TX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-EJBJPGW7TX');
+    </script>
+    
+    <!-- Google Tag Manager -->
+    
+    <!-- End Google Tag Manager -->
+
+    <script type="text/javascript">
+        var RootUrl = '/';
+    </script>
+    <style>
+        .footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            /*background-color:#b8cbdb;*/
+            background-color: #3175af;
+            border-top: solid 4px #3175af;
+            color: white;
+        }
+
+            .footer .panel-title {
+                border-bottom: dotted;
+                border-bottom-color: white;
+                border-bottom-width: 1px;
+                margin-bottom: 10px;
+            }
+
+            .footer a, .footer a:visited {
+                color: white;
+            }
+
+        div.skipLink A {
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            overflow: hidden;
+        }
+
+            div.skipLink A:focus {
+                transition: width 2s, height 2s;
+                width: auto;
+                height: auto;
+            }
+
+        #dropMenu > li.active > a {
+            color: white;
+        }
+
+        h1 image {
+            margin-top: -11px;
+        }
+
+        .in.navbar-collapse {
+            overflow: visible;
+        }
+
+        .nav-pills > form > li {
+            float: left;
+        }
+
+        .logo-box {
+            margin-top: 8px;
+            margin-bottom: 5px;
+            padding: 5px;
+        }
+
+        .nav > form > li {
+            position: relative;
+            display: block;
+        }
+
+            .nav > form > li > a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+            }
+
+                .nav > form > li > a:hover {
+                    text-decoration: none;
+                }
+
+        .bottom-aligned-text {
+            margin-bottom: 0px;
+            vertical-align: bottom;
+        }
+
+        div.c-wrapper {
+            width: 60%;
+            margin: auto;
+        }
+
+        .text-banner {
+            font-family: Georgia;
+            color: #e47000;
+        }
+
+        h1.text-banner {
+            font-family: Georgia;
+            color: #e47000;
+        }
+
+        .color-orange {
+            color: #e47000;
+            background-color: #e47000;
+            border-color: #e47000;
+        }
+
+        body {
+            background: rgb(255,255,255);
+        }
+
+        .body-content {
+            min-height: 580px;
+        }
+
+        .carousel-caption > p {
+            color: white;
+            font-size: 17px;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        div.carousel-caption {
+            text-shadow: 2px 2px 4px #333;
+        }
+
+        .v-center div[class*='col-'] {
+            display: table-cell !important;
+            vertical-align: middle;
+            float: none;
+        }
+
+        ul.nav li a, ul.nav li a:visited, ul.nav form li a, li a:visited, li a {
+            color: #1c5a8f;
+        }
+
+        ul.nav li a {
+            background-color: none;
+            border-top: solid;
+            border-top-color: transparent;
+            border-top-width: medium;
+            border-radius: 0px;
+            font-size: large;
+            font-weight: normal;
+        }
+
+            ul.nav li a:hover {
+                background-color: transparent;
+                border-top: solid;
+                border-top-color: #db5114;
+                border-top-width: medium;
+            }
+
+        ul.dropdown-menu li a {
+            font-weight: normal;
+            font-size: 14px;
+            border-top: none;
+        }
+
+            ul.dropdown-menu li a:hover {
+                border-top: none;
+                border-top-color: transparent;
+                border-top-width: medium;
+            }
+
+        .nav .open > a, nav .open > a:focus {
+            border-top-color: #db5114;
+        }
+
+        .pad-left-0 {
+            padding-left: 0px;
+        }
+
+        .pad-right-zero {
+            padding-right: 0px;
+        }
+
+        .carouselimage {
+            /*            max-height: 800px;
+        */ max-width: 1200px;
+        }
+
+        .carousel.fade {
+            opacity: 1;
+        }
+
+            .carousel.fade .item {
+                -moz-transition: opacity ease-in-out .7s;
+                -o-transition: opacity ease-in-out .7s;
+                -webkit-transition: opacity ease-in-out .7s;
+                transition: opacity ease-in-out .7s;
+                left: 0 !important;
+                opacity: 0;
+                top: 0;
+                position: absolute;
+                width: 100%;
+                display: block !important;
+                z-index: 1;
+            }
+
+                .carousel.fade .item:first-child {
+                    top: auto;
+                    position: relative;
+                }
+
+                .carousel.fade .item.active {
+                    opacity: 1;
+                    -moz-transition: opacity ease-in-out .7s;
+                    -o-transition: opacity ease-in-out .7s;
+                    -webkit-transition: opacity ease-in-out .7s;
+                    transition: opacity ease-in-out .7s;
+                    z-index: 2;
+                }
+
+        .img-carousel {
+            width: auto;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .page-header {
+            background-color: white;
+            margin-bottom: 0px;
+            border-bottom: none;
+        }
+
+        .carousel-text {
+            color: black;
+            text-shadow: none;
+            font-size: 18px;
+        }
+
+        .trans-back {
+            background-image: url(../../Images/pillBr_02.png);
+            border-radius: 20px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            margin-top: 0px;
+        }
+
+        ul.nav > li > ul.dropdown-menu > li span {
+            margin-left: 20px;
+        }
+
+        .nav > li > a {
+            position: relative;
+            display: block;
+            padding: 10px 10px;
+            font-size: 1.3em;
+        }
+
+        body {
+            /*            background-color: #edeef2;
+        */
+        }
+
+        .container.top {
+            background-color: white;
+        }
+
+        span.text-danger.field-validation-error {
+            color: red;
+        }
+
+        .form-control[disabled] {
+            background-color: gainsboro;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLV59RL"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="top container" style="margin-top:15px;">
+        <div style="display:flex; justify-content:center; flex-direction:row; border-bottom: 2px solid orange; margin-bottom:10px; padding:20px; padding-bottom:0px;">
+            <div>
+                <a href="https://myorangeclerk.com">
+                    <img class="img-responsive noprint" style="height:128px; object-fit:contain;" src="/Images/BannerLogo.png" alt="Tiffany Moore Russel Orange County Clerk Records Search - Logo">
+                </a>
+            </div>
+            <div class="hidden-xs">
+                <div style="display:flex; justify-content:right;">
+                    <div class="skipLink" tabindex="1">
+                        <a href="#main">Skip to content...</a>
+                    </div>
+                    <a href="/Home/Index">
+                        <img class="logo-box" src="/Images/MyEclerkLogo2.jpg" alt="my eclerk logo">
+                    </a>
+                </div>
+
+                <div class="navbar hidden-xs" style=" margin-right: auto; margin-left: auto;">
+                    <div class="collapse navbar-collapse text-center navbar-right" style="padding:0;">
+                        <ul class="nav nav-pills" id="navbar">
+                            <li><a href="/home/index">Home</a></li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                    Services
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu no-collapse" role="menu" id="dropMenu">
+                                    <li><a href="/MarriageLicense/index">Marriage Application</a></li>
+                                    <li><a href="/Family/Services">Family Services</a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Search<span class="caret"></span></a>
+                                <ul class="dropdown-menu no-collapse" role="menu" id="dropdown">
+                                    <li><a href="/Cases/Search">Case Records</a></li>
+                                    <li><a href="/CaseBalance/Index">Case Balance</a></li>
+                                    <li><a href="/RegistryBalance/Index">Registry Balance</a></li>
+                                    <li><a href="/Court/Index">Hearing Schedule</a></li>
+                                    <li><a href="/Bond/Index">Bond Discharge</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="https://myorangeclerk.com/Misc-Pages/ADA">Accessibility</a></li>
+                            <li><a href="/ECertify/VerifyDocument">Agency Only Verification</a></li>
+
+                                <li><a href="/account/Register">Register </a></li>
+                                <li><a href="/Account/Login">Log in</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="navbar navbar-default hidden-lg hidden-md hidden-sm navbar-static-top" role="navigation">
+            <div class="">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="/home/index">Home</a></li>
+                    <li><a href="https://myorangeclerk.com/Misc-Pages/ADA">Accessibility</a></li>
+                    <li><a href="/ECertify/VerifyDocument">Agency Only Verification</a></li>
+                    <li><a href="/Bond/Index">Bond Discharge</a></li>
+                    <li><a href="/CaseBalance/Index">Case Balance</a></li>
+                    <li><a href="/Family/Services">Family Services</a></li>
+                    <li><a href="/Court/Index">Hearing Schedule</a></li>
+                    <li><a href="/MarriageLicense/index">Marriage License</a></li>
+                    <li><a href="/Cases/Search">Records Search</a></li>
+                    <li><a href="/RegistryBalance/Index">Registry Balance</a></li>
+                        <li><a href="/account/Register">Register </a></li>
+                        <li><a href="/Account/Login">Log in</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <!----------------------------------------------------------------------------------------------------------------------------->
+        <!--<div class="page-header row ">
+        <div class="col-md-3 v-center pad-right-zero ">
+            <div class="no-padding">
+                <a href="https://myorangeclerk.com">  <img class="img-responsive noprint" src="~/Images/BannerLogo.png" alt="Tiffany Moore Russel Orange County Clerk Records Search - Logo" /> </a>
+            </div>
+        </div>
+
+        <div class="col-md-9 pad-left-zero bottom-aligned-text nav-background">
+            <div class="hidden-sm hidden-xs">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="skipLink" tabindex="1">
+                            <a href="#main">Skip to content...</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 text-right">
+                        <a href="~/Home/Index"> <img class="logo-box" src="~/Images/MyEclerkLogo2.jpg" alt="my eclerk logo" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar hidden-xs ">
+                <div class="collapse navbar-collapse text-center" style="padding:0;">
+                    <ul class="nav nav-pills" id="navbar">
+                        <li><a href="~/home/index">Home</a></li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                Services
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu no-collapse" role="menu" id="dropMenu">
+                                <li><a href="~/MarriageLicense/index">Marriage Application</a></li>
+                                <li><a href="~/Family/Mediation">Family Mediation</a></li>
+                                <li><span>Form Packets</span></li>
+                            </ul>
+                        </li>-->
+        
+        <!--<li role="presentation" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Search<span class="caret"></span></a>
+            <ul class="dropdown-menu no-collapse" role="menu" id="dropdown">
+                <li><span>Case Records</span></li>
+                <li><span>Case Balance</span></li>
+                <li><span>Registry Balance</span></li>
+                <li><span>Hearing Schedule</span></li>
+                <li><span>Bond Discharge</span></li>
+            </ul>
+        </li>
+        <li><a href="https://myorangeclerk.com/Misc-Pages/ADA">Accessibility</a></li>
+        <li><a href="~/ECertify/VerifyDocument">Agency Only Verification</a></li>
+
+            <li><a href="/account/Register">Register </a></li>
+            <li><a href="/Account/Login">Log in</a></li>
+
+-->
+        
+        <!--</ul>
+                    </div>
+                </div>
+
+                <div class="navbar navbar-default hidden-lg hidden-md hidden-sm navbar-static-top" role="navigation">
+                    <div class="">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse text-center">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="~/home/index">Home</a></li>
+                            <li><a href="https://myorangeclerk.com/Misc-Pages/ADA">Accessibility</a></li>
+
+                            <li><a href="~/Cases/Search">Records Search</a></li>
+                            <li><a href="~/ECertify/VerifyDocument">Agency Only Verification</a></li>
+                                <li><a href="/account/Register">Register </a></li>
+                                <li><a href="/Account/Login">Log in</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+    <div class="container body-content">
+        <section>
+            <main id="main">
+                
+
+
+<link href="/Content/DataTables/media/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/Content/print.css" rel="stylesheet" media="print">
+<script>
+    $(document).ready(function () {
+        $('#caseList').DataTable({
+            "lengthMenu": [[15, 25, 50, 75, -1], [15, 25, 50, 75, "All"]]
+        });
+
+    });
+
+    function printDoc() {
+        var prtContent = document.getElementById("printCaseList");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
+</script>
+
+<link href="/Content/Gridmvc.css" rel="stylesheet">
+<script src="/Scripts/gridmvc.js"></script>
+<style>
+    #printCaseList {
+        display: none;
+    }
+
+    .dataTables-filter {
+        max-width: none !important;
+        width: 600px !important;
+    }
+
+    .caseList_filter label input, .caseList_filter label {
+        max-width: none !important;
+        width: 600px !important;
+    }
+
+    .body {
+        font-size: 8px;
+    }
+
+    .panel-body {
+        font-size: 12px;
+    }
+
+    .pull-right {
+        margin-right: 6px;
+    }
+
+    .pagination {
+        margin-top: 0px;
+    }
+
+    .hideColumn {
+        visibility: hidden;
+    }
+
+    .hRed {
+        color: red;
+    }
+
+    .caseList {
+        min-height: 400px;
+    }
+
+        .caseList table tbody tr td {
+            padding: 5px 5px;
+        }
+
+    .colCaseNumber {
+        min-width: 150px;
+    }
+
+    th:nth-child(2) > .grid-filter:first-child > .dropdown-menu {
+        position: absolute;
+        margin-left: 52px;
+        z-index: 2000;
+    }
+
+    .table th {
+        width: auto !important;
+    }
+
+    .well {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <a class="pull-left print-icon" style="color:white" href="javascript:printDoc()">&nbsp;<span class="glyphicon glyphicon-print"></span>&nbsp; Print</a><h4 class="text-center">
+
+                Search Result: 1 cases
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div class="well">
+                <p>
+                    Record searches are limited to the first 500 results. For better search results, please refine your search criteria. Please note, if you have recently filed a Notice of Appearance, it may take up to 48 hours for the case to be reflected on this list. Search results can be sorted by clicking on column headings and can also be filtered by adding text to the search field.
+                </p>
+                <p>
+                    Review your results carefully!  Name searches on my eClerk return exact matches and some variations of that name.  It is your responsibility to verify that the case party
+                    information returned matches your intended search criteria.
+                </p>
+            </div>
+
+            <div class="table-responsive">
+                <div id="grid" class="caseList">
+
+                    <div id="caseList_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="caseList_length"><label>Show <select name="caseList_length" aria-controls="caseList" class="form-control input-sm"><option value="15">15</option><option value="25">25</option><option value="50">50</option><option value="75">75</option><option value="-1">All</option></select> entries</label></div></div><div class="col-sm-6"><div id="caseList_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="caseList"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="caseList" class="table grid-table table-striped table-condensed table-fixed dataTable no-footer" role="grid" aria-describedby="caseList_info">
+                        <thead>
+                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 15px;">#</th><th class="col-casenumber grid-header sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label="Case Number: activate to sort column ascending" style="width: 176px;">Case Number</th><th class="sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width: 382px;">Description</th><th class="sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 92px;">Type</th><th class="sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label=" Status: activate to sort column ascending" style="width: 52px;"> Status</th><th class="sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label="DOB: activate to sort column ascending" style="width: 63px;">DOB</th><th class="sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label="Judge Name: activate to sort column ascending" style="width: 96px;">Judge Name</th><th class="sorting" tabindex="0" aria-controls="caseList" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 63px;">Date</th></tr>
+                        </thead>
+                        <tbody>
+                                
+                        <tr role="row" class="odd">
+                                    <td class="sorting_1">1</td>
+                                    <td class="colCaseNumber">
+<a class="caseLink" href="/CaseDetails?cItem=gMA26XMqd19I%2B9ujFOBUvbBtDtGQjw5jx0ZaAnHoXaokan4lqtxsrFyL3YIZUqnBsPLL3SpnCZyiayTpUSnr7lXuEGSAmi6%2FU12dY5TsoSg%3D">2018-CF-003935-B-O</a>                                    </td>
+                                    <td>STATE OF FLORIDA - VS - MOSLEY, DALTON MATTHEW</td>
+                                    <td>Criminal Felony</td>
+                                    <td>Reclosed</td>
+
+                                    <td>
+12/05/1995                                    </td>
+                                    <td>John E Jordan</td>
+                                    <td>
+06/12/2018                                    </td>
+                                </tr></tbody>
+                    </table></div></div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="caseList_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="caseList_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="caseList_previous"><a href="#" aria-controls="caseList" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="caseList" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="caseList_next"><a href="#" aria-controls="caseList" data-dt-idx="2" tabindex="0">Next</a></li></ul></div></div></div></div>
+
+                    
+
+                </div>
+            </div>
+
+            <div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ********************************************    PRINT FORM ****************************************************-->
+<div class="panel panel-primary print" id="printCaseList">
+
+    <style>
+        table.pt {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 8pt;
+            width: 100%;
+            border-style: solid;
+            border-width: thin;
+            border-color: black;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .pt caption {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12pt;
+            text-align: center;
+            border-style: solid;
+            border-width: thin;
+            border-color: black;
+            border-bottom-style: none;
+            background-color: lightgray;
+        }
+
+        .pt tr td {
+            border-bottom-style: dotted;
+            border-bottom-color: gray;
+            border-bottom-width: thin;
+            vertical-align: top;
+        }
+
+        a[href]:after {
+            content: none;
+        }
+
+        text {
+            /*margin-left:150px;*/
+        }
+    </style>
+
+    <div style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:12pt;">
+        <span>
+            <img src="/Images/OCCCLogoSmaller.jpg" alt="Records Search logo" style="float:left;">
+            
+        </span>
+        <br>
+        <br>
+        <text style="font-size:12pt; margin-left:33px;">Orange County Clerk - Court Records Search</text>
+        <br>
+    </div>
+    <br>
+    <br>
+    <table class="pt" style="margin-top:6px;">
+        <caption>Case Search Results</caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="col-casenumber grid-header" style="width:135px; margin-left:10px;">Case Number</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>DOB</th>
+                <th>Judge Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>1.</td>
+                    <td class="colCaseNumber">
+                        2018-CF-003935-B-O
+                    </td>
+                    <td>STATE OF FLORIDA - VS - MOSLEY, DALTON MATTHEW</td>
+                    <td>Criminal Felony</td>
+                    <td>
+12/05/1995                    </td>
+                    <td>John E Jordan</td>
+                    <td>
+06/12/2018                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+
+            </main>
+        </section>
+    </div>
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="panel-title">
+                        Help &amp; Support
+                    </div>
+                    <a href="/Home/FAQ">FAQ</a><br>
+                    <a href="/Home/GlossaryOfTerms">Glossary of Terms</a><br>
+                    <a href="https://www.myorangeclerk.com/Misc-Pages/Contact-Us">Contact Support<br></a>
+                    <a href="https://myorangeclerk.com/Misc-Pages/Privacy-Statement?pagesection=Privacy Statement">View Our Privacy Statement<br></a>
+
+                </div>
+                <div class="col-md-4 text-center" style="margin-top:-20px;">
+
+                    <a href="/home/index"> <img class="logo-box" src="/Images/MyEclerkLogoShadow.png" alt="my eclerk logo"></a><br>
+                    <small>
+                        © Copyright 2025 Orange County Clerk of Courts <br>
+                        All rights reserved <br>
+                        Build V. 4.0.7.1   <br>
+                        
+                    </small>
+
+                </div>
+                <div class="col-md-2 col-md-offset-1 ">
+                    <div class="panel-title">
+                        Follow Us...
+                    </div>
+                    <a href="http://twitter.com/orangeclerk"> <span class="social social-twitter"></span> Twitter</a> <br>
+                    <a href="http://facebook.com/pages/orlando-Florida/Orange-County-Clerk-Of-Courts/186708240483?ref=ts"><span class="social social-facebook"></span> Facebook</a> <br>
+                    <a href="https://app.e2ma.net/app2/audience/signup/71567/40188/?v=a"><span class="glyphicons glyphicons-envelope"></span> Newsletter Email</a> <br>
+                </div>
+            </div>
+        </div>
+        <script>
+    $(document).ready(function () {
+       
+        var TimeOutValue = 0 * 60000;
+        if(TimeOutValue > 0)
+        {
+            var mainTimeOut;
+            StartCountdown();
+            $(document).click(function () {
+                clearTimeout(mainTimeOut);
+                StartCountdown();
+            })
+            $(document).keydown(function () {
+                clearTimeout(mainTimeOut);
+                StartCountdown();
+            })
+            function StartCountdown(){
+                mainTimeOut = setTimeout(function () {
+                    window.location = 'https://myeclerk.myorangeclerk.com/Session/HandleTimeOut';
+                }, TimeOutValue);
+            }
+        }
+        //if ($(window).width() < 768)
+        //{
+        //    setTimeout(function () {
+        //        $('.translateHost').appendTo('.translateHost-mobile');
+        //    }, 3000);
+        //}
+    });
+</script>
+
+    </footer>
+    <script src="/bundles/jqueryval?v=4IkQwcyMk_uVPkKG8KBemEblvLW80K93UjiK5ZlhFvA1"></script>
+
+    <script src="/bundles/bootstrap?v=7k-mK_Lw6GRA4MkvIrgrWipUHc3KUDohIwN2DDpspCI1"></script>
+
+    <script src="/bundles/customjs?v=OezqSEQA_anUgicPYRrsmNGji4G11dtNAOQCk62aGmE1"></script>
+
+    <script src="/Scripts/site.js"></script>
+    
+    <script src="/Scripts/DataTables/media/js/jquery.dataTables.js"></script>
+    <script src="/Scripts/DataTables/media/js/dataTables.bootstrap.js"></script>
+
+
+
+
+</body></html>

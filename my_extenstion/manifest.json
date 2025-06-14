@@ -1,0 +1,164 @@
+{
+    "manifest_version": 3,
+    "name": "OMOcaptcha: Auto solve captcha",
+    "version": "1.2.0",
+    "description": "OMOcaptcha: Auto solve captcha",
+    "icons": {
+        "16": "/icons/favicon16.png",
+        "48": "/icons/favicon48.png",
+        "128": "/icons/favicon128.png"
+    },
+    "action": {
+        "default_icon": "/icons/favicon16.png",
+        "default_title": "OMOcaptcha - Automatically solve captcha",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "declarativeNetRequest",
+        "storage",
+        "tabs"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "configs.json"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "/contents/background.bundle.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.arkoselabs.com/fc/*",
+                "*://*.funcaptcha.com/fc/*",
+                "*://*.roblox.com/fc/*",
+                "*://*.airbnb.com/fc/*"
+            ],
+            "js": [
+                "/contents/funcaptcha-content.bundle.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": false,
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://*.tiktok.com/*"
+            ],
+            "js": [
+                "/contents/tiktok-content.bundle.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://*.omocaptcha.com/*"
+            ],
+            "js": [
+                "/contents/captcha-set-key.bundle.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "*://*.zcaptcha.api.zaloapp.com/*"
+            ],
+            "js": [
+                "/contents/zalo-content.bundle.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": true,
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://*.shopee.vn/*",
+                "*://*.shopee.sg/*",
+                "*://*.shopee.com.my/*",
+                "*://*.shopee.co.id/*",
+                "*://*.shopee.co.th/*",
+                "*://*.shopee.ph/*",
+                "*://*.shopee.tw/*",
+                "*://*.shopee.com.br/*",
+                "*://*.shopee.com.mx/*",
+                "*://*.shopee.com.co/*",
+                "*://*.shopee.com.cl/*",
+                "*://*.shopee.com.ar/*",
+                "*://*.shopee.com/*"
+            ],
+            "js": [
+                "/contents/shopee-content.bundle.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": true,
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://*.google.com/recaptcha*",
+                "*://*.recaptcha.net/recaptcha*"
+            ],
+            "js": [
+                "/contents/recaptchav2-content.bundle.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": true,
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["<all_urls>"],
+            "exclude_matches": [
+                "*://*.arkoselabs.com/fc/*",
+                "*://*.funcaptcha.com/fc/*",
+                "*://*.roblox.com/fc/*",
+                "*://*.airbnb.com/fc/*",
+                "*://*.tiktok.com/*",
+                "*://*.omocaptcha.com/*",
+                "*://*.zcaptcha.api.zaloapp.com/*",
+                "*://*.shopee.vn/*",
+                "*://*.google.com/recaptcha*",
+                "*://*.recaptcha.net/recaptcha*",
+                "*://*.garena.com/*",
+                "*://*.captcha-delivery.com/*"
+            ],
+            "js": [
+                "/contents/amzn-content.bundle.js",
+                "/contents/geetest-content.bundle.js",
+                "/contents/image-to-text-content.bundle.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": true,
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://*.captcha-delivery.com/*"
+            ],
+            "js": [
+                "/contents/garena-content.bundle.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": true,
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "/contents/recaptcha-parent-content.bundle.js"
+            ],
+            "all_frames": false,
+            "run_at": "document_end"
+        }
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    }
+}

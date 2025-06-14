@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hieu Nguyen Auto Tool</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      min-width: 0;
+      min-height: 0;
+      box-sizing: border-box;
+      background: #0f0f1a;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0f0f1a;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      min-width: 0;
+      min-height: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      flex-direction: row;
+      width: 100vw;
+      height: 100vh;
+      min-width: 0;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      background: #0f0f1a;
+      border-radius: 0;
+      box-shadow: none;
+      color: #f1f1f1;
+      border: none;
+    }
+    #sidebar {
+      width: 180px;
+      min-width: 120px;
+      background: #1c1c28;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 32px;
+      border-right: 2px solid #2c2c3c;
+      border-radius: 0;
+      box-shadow: 2px 0 12px #2f80ed88;
+      height: 100vh;
+      min-height: 0;
+    }
+    #mainContent {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #0f0f1a;
+      overflow-y: auto;
+      border-left: 1.5px solid #2c2c3c;
+      height: 100vh;
+      min-height: 0;
+      min-width: 0;
+      padding: 0 0 0 0;
+    }
+    #crawlTabContent, #proxyTabContent {
+      flex: 1;
+      min-height: 0;
+      min-width: 0;
+      padding: 36px 32px 32px 32px;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+    h2 {
+      text-align: center;
+      font-size: 2.3rem;
+      color: #fff;
+      margin-bottom: 32px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 8px #2f80edcc, 0 1px 0 #fff2;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+      color: #b0b0c0;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    input[type=number], input[type=text], input[type=file] {
+      width: 60%;
+      min-width: 180px;
+      max-width: 420px;
+      padding: 8px 10px;
+      margin-bottom: 12px;
+      border-radius: 7px;
+      border: 1.2px solid #2c2c3c;
+      background: #181828;
+      color: #fff;
+      font-size: 1rem;
+      box-sizing: border-box;
+      transition: border 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 0 #2c2c3c inset;
+    }
+    input[type=number]:focus, input[type=text]:focus, input[type=file]:focus {
+      border: 1.5px solid #2f80ed;
+      outline: none;
+      box-shadow: 0 0 0 2px #2f80ed55;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 1rem;
+      border-radius: 7px;
+      background: linear-gradient(90deg, #1b6bff 60%, #4da6ff 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 8px #2f80ed88, 0 1.5px 0 #fff2 inset;
+      margin-top: 8px;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    button:disabled { background: #555; color: #ccc; }
+    .btn-upgrade {
+      background: #2f80ed !important;
+      color: #fff !important;
+    }
+    .btn-gray {
+      background: #2b2b3a !important;
+      color: #fff !important;
+    }
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #2f80ed;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    #leadsResult {
+      margin-top: 24px;
+      background: linear-gradient(90deg, #1b6bff 0%, #4da6ff 100%);
+      border-radius: 10px;
+      padding: 16px;
+      color: #fff;
+      font-size: 1.05rem;
+      max-height: 320px;
+      overflow: auto;
+      border: 1.5px solid #2c2c3c;
+      box-shadow: 0 2px 8px #2f80ed88;
+    }
+    #caseLog {
+      margin-top: 24px;
+      max-height: 340px;
+      overflow: auto;
+      font-size: 14px;
+      background: #181828;
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #2f80ed88;
+      border: 1.5px solid #2c2c3c;
+    }
+    #caseLogTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #232b3b;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #caseLogTable th, #caseLogTable td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid #2c2c3c;
+    }
+    #caseLogTable th {
+      background: #2f80ed;
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    #caseLogTable tr {
+      transition: background 0.2s;
+    }
+    #caseLogTable tr:nth-child(even) { background: #232b3b; }
+    #caseLogTable tr:nth-child(odd) { background: #181828; }
+    #caseLogTable td { color: #fff; }
+    #caseLogTable td:last-child { color: #b0b0c0; }
+    #caseErrorLog {
+      margin-top: 24px;
+      max-height: 180px;
+      overflow: auto;
+      font-size: 14px;
+      background: #2a1818;
+      color: #ffbdbd;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #d32f2faa;
+      border: 1.5px solid #d32f2f;
+    }
+    #caseErrorTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #2a1818;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #caseErrorTable th, #caseErrorTable td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid #d32f2f;
+    }
+    #caseErrorTable th {
+      background: #d32f2f;
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    #caseErrorTable tr {
+      transition: background 0.2s;
+    }
+    #caseErrorTable tr:nth-child(even) { background: #3a2323; }
+    #caseErrorTable tr:nth-child(odd) { background: #2a1818; }
+    #caseErrorTable td { color: #ffbdbd; }
+    #caseErrorTable td:last-child { color: #b0b0c0; }
+    .sidebar-tab {
+      padding: 14px 28px;
+      width: 100%;
+      cursor: pointer;
+      background: none;
+      border-left: 4px solid transparent;
+      font-weight: normal;
+      transition: background 0.2s, border-left 0.2s, color 0.2s;
+      color: #b0b0c0;
+      font-size: 1.08rem;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-tab-active {
+      background: linear-gradient(90deg, #232323 80%, #2f80ed 100%);
+      border-left: 4px solid #2f80ed;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 2px 8px #2f80ed88;
+    }
+    @media (max-width: 900px) {
+      .container { max-width: 100vw; padding: 0; }
+      #leadsResult, #caseLog, #caseErrorLog { padding: 6px; }
+      h2 { font-size: 1.3rem; }
+      #sidebar { width: 120px; }
+      .sidebar-tab { padding: 10px 10px; font-size: 0.98rem; }
+      #crawlTabContent > div[style*='display: flex'] { flex-direction: column !important; gap: 0 !important; }
+      #caseLog, #caseErrorLog { max-width: 100vw !important; min-width: 0 !important; }
+    }
+    @media (max-width: 600px) {
+      .container { max-width: 100vw; padding: 0; }
+      #leadsResult, #caseLog, #caseErrorLog { padding: 2px; }
+      h2 { font-size: 1.1rem; }
+      #sidebar { width: 80px; }
+      .sidebar-tab { padding: 8px 4px; font-size: 0.88rem; }
+      #crawlTabContent > div[style*='display: flex'] { flex-direction: column !important; gap: 0 !important; }
+      #caseLog, #caseErrorLog { max-width: 100vw !important; min-width: 0 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="sidebar">
+      <div id="tabCrawl" class="sidebar-tab sidebar-tab-active">Crawl Case</div>
+      <div id="tabProxy" class="sidebar-tab">Proxy (dev)</div>
+    </div>
+    <div id="mainContent">
+      <!-- Tab: Crawl Case -->
+      <div id="crawlTabContent">
+        <h2>Hieu Nguyen Auto Tool</h2>
+        <div class="status" id="status" style="margin-bottom:10px;"></div>
+        <form id="crawlForm">
+          <label for="profileCount">Số lượng profile Chrome song song:</label>
+          <input type="number" id="profileCount" name="profileCount" min="1" max="10" value="3" required />
+          <label for="extKey">Nhập KEY cho extension:</label>
+          <input type="text" id="extKey" name="extKey" placeholder="Nhập KEY..." required />
+          <label for="inputFile">Chọn file input.txt hoặc XML chứa CaseKey:</label>
+          <input type="file" id="inputFile" name="inputFile" accept=".txt,.xml" required />
+          <div style="margin-bottom:10px;">
+            <label for="chromePath" style="color:#b0b0c0;">Đường dẫn Chrome (executablePath):</label>
+            <input id="chromePath" type="text" style="width:420px;padding:4px 8px;border-radius:4px;border:1px solid #2c2c3c;background:#181828;color:#fff;" value="C:\Program Files\Google\Chrome\Application\chrome.exe" />
+          </div>
+          <div style="margin-bottom: 10px; display: flex; gap: 12px; align-items: center;">
+            <button id="btnStartCrawl" type="submit">Bắt đầu Crawl</button>
+            <button id="btnKillChrome" type="button" class="btn-gray">Kill Chrome & Xuất file</button>
+          </div>
+        </form>
+        <div id="totalCaseInfo" style="text-align:center;color:#b0b0c0;font-size:1.08rem;margin:10px 0 10px 0;"></div>
+        <div id="leadsResult"></div>
+        <div style="display: flex; flex-direction: row; gap: 24px; width: 100%; margin-bottom: 10px; flex-wrap: wrap;">
+          <div id="caseLog" style="flex:1 1 0; min-width:320px; max-width:60vw;">
+            <div style="font-weight:bold;margin-bottom:6px;font-size:15px;letter-spacing:1px;color:#fff;">Lịch sử thành công</div>
+            <table id="caseLogTable">
+              <thead>
+                <tr><th>#</th><th>Case ID</th><th>CaseKey</th><th>Thời gian</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div id="caseErrorLog" style="flex:1 1 0; min-width:320px; max-width:40vw;">
+            <div style="font-weight:bold;margin-bottom:6px;font-size:15px;letter-spacing:1px;color:#ff4d4d;">Danh sách case lỗi</div>
+            <table id="caseErrorTable">
+              <thead>
+                <tr><th>#</th><th>Case ID</th><th>CaseKey</th><th>Thời gian</th><th>Lý do</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div style="margin-bottom: 10px;"></div>
+      </div>
+      <!-- Tab: Proxy (dev) -->
+      <div id="proxyTabContent" style="display:none; color: #b0b0c0;">
+        <h2 style="color:#fff;">Phát triển Proxy (dev)</h2>
+        <p>Chức năng proxy sẽ được phát triển ở tab này.</p>
+        <form id="proxyForm" style="margin-top:24px;max-width:520px;">
+          <label for="proxyList">Danh sách proxy (mỗi dòng 1 proxy):</label>
+          <textarea id="proxyList" rows="7" style="width:100%;min-width:220px;max-width:520px;padding:8px 10px;border-radius:7px;border:1.2px solid #2c2c3c;background:#181828;color:#fff;font-size:1rem;box-sizing:border-box;resize:vertical;" placeholder="Ví dụ:\n123.123.123.123:8000\nproxy.domain.com:9000:user:pass"></textarea>
+          <div style="font-size:0.98em;color:#888;margin:6px 0 12px 0;">Hỗ trợ cđịnh dạng:<br>DOMAIN:PORT</div>
+          <button id="btnSaveProxy" type="button">Lưu proxy</button>
+          <span id="proxySaveStatus" style="margin-left:12px;font-size:0.98em;color:#2f80ed;"></span>
+        </form>
+        <div style="margin-top:24px; color:#888899;">(Bạn có thể thêm form nhập proxy, danh sách proxy, test proxy... ở đây sau)</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron');
+    const form = document.getElementById('crawlForm');
+    const statusDiv = document.getElementById('status');
+    const leadsResult = document.getElementById('leadsResult');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const profileCount = parseInt(document.getElementById('profileCount').value, 10);
+      const extKey = document.getElementById('extKey').value.trim();
+      const fileInput = document.getElementById('inputFile');
+      const chromePath = document.getElementById('chromePath').value.trim();
+      if (!fileInput.files[0]) {
+        statusDiv.textContent = 'Vui lòng chọn file input.';
+        return;
+      }
+      // Đọc file input và gửi nội dung lên main process
+      const file = fileInput.files[0];
+      const inputFileName = file.name; // <--- Fix lỗi này
+      const reader = new FileReader();
+      reader.onload = async function() {
+        const inputContent = reader.result;
+        statusDiv.textContent = 'Đang chạy crawl...';
+        form.querySelector('button').disabled = true;
+        leadsResult.innerHTML = '';
+        try {
+          await ipcRenderer.invoke('start-crawl', {
+            profileCount,
+            extKey,
+            inputContent,
+            inputFileName,
+            chromePath,
+            proxyList: localStorage.getItem('proxyList') || ''
+          });
+          statusDiv.textContent = 'Đã crawl xong!';
+        } catch (err) {
+          statusDiv.textContent = 'Có lỗi: ' + err.message;
+        }
+        form.querySelector('button').disabled = false;
+      };
+      reader.readAsText(file);
+    });
+    // Hiển thị tổng số case
+    let totalCaseCount = 0;
+    function updateTotalCaseInfo(total) {
+      totalCaseCount = total;
+      document.getElementById('totalCaseInfo').textContent = total ? `Tổng số case: ${total}` : '';
+    }
+    // Nhận danh sách leads đã chia từ main process và hiển thị lên UI (gọn)
+    ipcRenderer.on('leads-distribution', (event, data) => {
+      if (!Array.isArray(data)) return;
+      let total = 0;
+      let html = '<b>Phân chia case cho từng profile:</b><br/>';
+      data.forEach((item, idx) => {
+        const leads = item.leads || [];
+        total += leads.length;
+        let preview = leads.slice(0,5).join(', ');
+        if (leads.length > 5) preview += ', ...';
+        html += `<div style="margin-top:6px;"><b>Profile ${idx+1}:</b> ${leads.length} case`;
+        if (leads.length > 0) html += ` <span style='color:#eee;font-size:0.97em;'>[${preview}]</span>`;
+        html += `</div>`;
+      });
+      leadsResult.innerHTML = html;
+      updateTotalCaseInfo(total);
+    });
+    // Log từng case đã xong lên UI (bảng đẹp, đen trắng/xám)
+    const caseLogTable = document.getElementById('caseLogTable').querySelector('tbody');
+    let caseLogCount = 0;
+    ipcRenderer.on('case-done', (event, data) => {
+      if (!data) return;
+      caseLogCount++;
+      const tr = document.createElement('tr');
+      tr.style.background = caseLogCount % 2 === 0 ? '#232323' : '#191919';
+      tr.innerHTML = `<td style='padding:4px 8px;text-align:center;color:#fff;'>${caseLogCount}</td><td style='padding:4px 8px;color:#eee;'>${data.caseId}</td><td style='padding:4px 8px;color:#eee;'>${data.caseKey}</td><td style='padding:4px 8px;color:#bbb;'>${data.crawlTime}</td>`;
+      caseLogTable.appendChild(tr);
+      // Scroll bảng log nếu quá nhiều dòng
+      const caseLogDiv = document.getElementById('caseLog');
+      caseLogDiv.scrollTop = caseLogDiv.scrollHeight;
+    });
+    // Log case lỗi lên UI (bảng đỏ)
+    const caseErrorTable = document.getElementById('caseErrorTable').querySelector('tbody');
+    let caseErrorCount = 0;
+    ipcRenderer.on('case-error', (event, data) => {
+      if (!data) return;
+      caseErrorCount++;
+      const tr = document.createElement('tr');
+      tr.style.background = caseErrorCount % 2 === 0 ? '#3a2323' : '#2a1818';
+      tr.innerHTML = `<td style='padding:4px 8px;text-align:center;color:#ffbdbd;'>${caseErrorCount}</td><td style='padding:4px 8px;color:#ffbdbd;'>${data.caseId}</td><td style='padding:4px 8px;color:#ffbdbd;'>${data.caseKey}</td><td style='padding:4px 8px;color:#ffbdbd;'>${data.crawlTime}</td><td style='padding:4px 8px;color:#ffbdbd;'>${data.reason || ''}</td>`;
+      caseErrorTable.appendChild(tr);
+      // Scroll bảng lỗi nếu quá nhiều dòng
+      const caseErrorDiv = document.getElementById('caseErrorLog');
+      caseErrorDiv.scrollTop = caseErrorDiv.scrollHeight;
+    });
+    // Nhận thông báo xuất file thành công hoặc lỗi từ main process
+    ipcRenderer.on('export-done', (event, data) => {
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = 'Đã xuất file ra Desktop: ' + (data && data.destPath ? data.destPath : '');
+    });
+    ipcRenderer.on('export-error', (event, data) => {
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = 'Lỗi xuất file: ' + (data && data.error ? data.error : '');
+    });
+    // Xử lý sự kiện click cho nút "Kill Chrome & Xuất file"
+    document.getElementById('btnKillChrome').addEventListener('click', async () => {
+      const result = confirm('Bạn có chắc chắn muốn kill tất cả các phiên bản Chrome và xuất file không?');
+      if (!result) return;
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = 'Đang kill Chrome và xuất file...';
+      try {
+        // Gửi yêu cầu kill Chrome và xuất file về main process
+        await ipcRenderer.invoke('kill-chrome-export');
+        statusDiv.textContent = 'Đã kill Chrome và xuất file thành công!';
+      } catch (err) {
+        statusDiv.textContent = 'Có lỗi: ' + err.message;
+      }
+    });
+    // Sidebar tab switching
+    document.getElementById('tabCrawl').onclick = function() {
+      document.getElementById('tabCrawl').classList.add('sidebar-tab-active');
+      document.getElementById('tabProxy').classList.remove('sidebar-tab-active');
+      document.getElementById('crawlTabContent').style.display = '';
+      document.getElementById('proxyTabContent').style.display = 'none';
+      document.getElementById('tabCrawl').style.background = '#232323';
+      document.getElementById('tabCrawl').style.borderLeft = '4px solid #1976d2';
+      document.getElementById('tabProxy').style.background = 'none';
+      document.getElementById('tabProxy').style.borderLeft = '4px solid transparent';
+    };
+    document.getElementById('tabProxy').onclick = function() {
+      document.getElementById('tabProxy').classList.add('sidebar-tab-active');
+      document.getElementById('tabCrawl').classList.remove('sidebar-tab-active');
+      document.getElementById('proxyTabContent').style.display = '';
+      document.getElementById('crawlTabContent').style.display = 'none';
+      document.getElementById('tabProxy').style.background = '#232323';
+      document.getElementById('tabProxy').style.borderLeft = '4px solid #1976d2';
+      document.getElementById('tabCrawl').style.background = 'none';
+      document.getElementById('tabCrawl').style.borderLeft = '4px solid transparent';
+    };
+    // Proxy tab logic
+    const proxyListEl = document.getElementById('proxyList');
+    const btnSaveProxy = document.getElementById('btnSaveProxy');
+    const proxySaveStatus = document.getElementById('proxySaveStatus');
+    // Load proxy list from localStorage
+    proxyListEl.value = localStorage.getItem('proxyList') || '';
+    btnSaveProxy.onclick = function() {
+      localStorage.setItem('proxyList', proxyListEl.value.trim());
+      proxySaveStatus.textContent = 'Đã lưu proxy!';
+      setTimeout(()=>{proxySaveStatus.textContent='';}, 1800);
+    };
+    // Khi chuyển tab, tự động reload proxyList
+    document.getElementById('tabProxy').addEventListener('click', function() {
+      proxyListEl.value = localStorage.getItem('proxyList') || '';
+    });
+  </script>
+</body>
+</html>
