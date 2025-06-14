@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Root xmlns="http://risk.regn.net/LeadList" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Source="https://myeclerk.myorangeclerk.com/Cases/Search" SearchPageIdentifierPattern="" CollectionComplete="false" ID="8ffd20fb-33fc-43bc-ad3a-b4b96af1e13a" MultiplePageCollection="false" TimeDelayAfterPageLoad="0" DuplicateLinkChecking="false">
+  <Navigation>
+    <InitialNavigation>
+      <Page Order="1" SourceUri="https://myeclerk.myorangeclerk.com/Cases/Search" />
+    </InitialNavigation>
+  </Navigation>
+  <LeadList>
+    <Lead CaseKey="2018MO001006AO" ID="936fc0a2-f0fe-418a-9458-d370cabc7160">
+      <InputValue FieldID="1">2018MO001006AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001009AO" ID="28741ca0-fea5-4362-a1f6-35d200285b99">
+      <InputValue FieldID="1">2018MO001009AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001021AO" ID="a81f7f0c-6877-4146-a1fc-dca35f9774c0">
+      <InputValue FieldID="1">2018MO001021AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001030AO" ID="fcc29fba-1142-4461-8d6b-044ef5886690">
+      <InputValue FieldID="1">2018MO001030AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001031AO" ID="149d776c-7a12-40b4-8b6f-994160902f56">
+      <InputValue FieldID="1">2018MO001031AO</InputValue>
+    </Lead>
+	<Lead CaseKey="2018MO001006AO" ID="936fc0a2-f0fe-418a-9458-d370cabc7160">
+      <InputValue FieldID="1">2018MO001006AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001009AO" ID="28741ca0-fea5-4362-a1f6-35d200285b99">
+      <InputValue FieldID="1">2018MO001009AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001021AO" ID="a81f7f0c-6877-4146-a1fc-dca35f9774c0">
+      <InputValue FieldID="1">2018MO001021AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001030AO" ID="fcc29fba-1142-4461-8d6b-044ef5886690">
+      <InputValue FieldID="1">2018MO001030AO</InputValue>
+    </Lead>
+    <Lead CaseKey="2018MO001031AO" ID="149d776c-7a12-40b4-8b6f-994160902f56">
+      <InputValue FieldID="1">2018MO001031AO</InputValue>
+    </Lead>
+	
+  </LeadList>
+</Root>
