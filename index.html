@@ -598,9 +598,9 @@
           let htmlBuffer = pako.ungzip(gzippedHtml, { to: 'string' });
 
           // Sửa link CSS/JS thành tuyệt đối (giống fixHtmlLinks)
-          const baseUrl = 'https://myeclerk.myorangeclerk.com';
-          htmlBuffer = htmlBuffer.replace(/href="\/(Content|bundles|Scripts|Images|DocView)[^"']*"/g, match => match.replace('href="/', `href="${baseUrl}/`));
-          htmlBuffer = htmlBuffer.replace(/src="\/(Content|bundles|Scripts|Images|DocView)[^"']*"/g, match => match.replace('src="/', `src="${baseUrl}/`));
+          //const baseUrl = 'https://myeclerk.myorangeclerk.com';
+          // htmlBuffer = htmlBuffer.replace(/href="\/(Content|bundles|Scripts|Images|DocView)[^"']*"/g, match => match.replace('href="/', `href="${baseUrl}/`));
+          // htmlBuffer = htmlBuffer.replace(/src="\/(Content|bundles|Scripts|Images|DocView)[^"']*"/g, match => match.replace('src="/', `src="${baseUrl}/`));
           const htmlWin = window.open('', '_blank');
           htmlWin.document.write(htmlBuffer);
           htmlWin.document.title = 'CaseID: ' + caseId;

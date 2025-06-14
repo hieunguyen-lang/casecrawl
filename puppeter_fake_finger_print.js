@@ -213,7 +213,19 @@ async function waitForReady(page, maxRetry = 10, interval = 1000 ) {
 
       console.log(`⏳ [Lần ${attempt}/${maxRetry}] Chưa sẵn sàng, thử lại sau ${interval}ms...`);
     } catch (err) {
-      console.log(`Loi kiem tra san sang (lan ${attempt}):`, err.message);
+      if (err.message && (err.message.includes('Target closed') || err.message.includes('Protocol error'))) {
+          console.error('Chrome đã bị đóng, dừng crawl và xuất file!');
+          if (process.send) {
+            process.send({ type: 'chrome-closed', data: { caseId, caseKey: caseNumber } });
+            
+          }
+          fs.copyFileSync(outputFilePath, outputFilePathcopy);
+          console.log('Đã copy file case_detail_gzip.txt ra Desktop:', destPath);
+          process.exit(0);
+
+      }else {
+        console.log(`Loi kiem tra san sang (lan ${attempt}):`, err.message);
+      }
     }
 
     await wait(interval);
@@ -226,6 +238,13 @@ async function waitForReady(page, maxRetry = 10, interval = 1000 ) {
 (async () => {
   // Đọc tên file input từ argv, mặc định là 'input.txt' nếu không truyền
   const inputFileName = process.argv[3] || 'input.txt';
+  // Di chuyển file case_detail_gzip.txt ra Desktop (hoặc thư mục Download)
+  const now = new Date();
+  const timestamp = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + '_' + String(now.getHours()).padStart(2,'0') + '-' + String(now.getMinutes()).padStart(2,'0') + '-' + String(now.getSeconds()).padStart(2,'0');
+  const desktopDir = path.join(os.homedir(), 'Desktop');
+  const destPath = path.join(desktopDir, `case_detail_gzip_${timestamp}.txt`);
+  
+
   const xmlContent = fs.readFileSync(inputFileName, 'utf-8');
   // Parse XML để lấy LeadListGuid (ID ở <root>) và danh sách leads (CaseKey, ID)
   const { LeadListGuid, leads } = await new Promise((resolve, reject) => {
@@ -508,52 +527,15 @@ try {
         await page.type('#caseNumber', caseNumber);
         // Chờ và click reCAPTCHA (có retry nếu bị detach hoặc không tìm thấy)
         let recaptchaSuccess = false;
-        // wait(20006); // Đợi 20 giây trước khi thao tác reCAPTCHA
-        // for (let retry = 0; retry < 5; retry++) {
-        //   try {
-        //     const frames = await page.frames();
-        //     const recaptchaFrame = frames.find(frame => frame.url().includes('recaptcha'));
-        //     if (recaptchaFrame) {
-        //       const checkbox = await recaptchaFrame.waitForSelector('.recaptcha-checkbox-border', { visible: true, timeout: 20000 });
-        //       await checkbox.hover();
-        //       await checkbox.focus();
-        //       //await page.waitForTimeout(1000); // đợi DOM ổn định
-        //       await checkbox.click({ delay: 1000 });
-
-        //       await checkbox.click();
-        //       console.log(' Da click reCAPTCHA');
-
-        //       // Đợi trạng thái checked
-        //       await recaptchaFrame.waitForSelector('.recaptcha-checkbox-checked', { visible: true, timeout: 20000 });
-        //       console.log(' reCAPTCHA đã được tick');
-
-        //       // Sau khi tick, kiểm tra có hiện challenge audio không (ở main page)
-        //       const isAudioCaptcha = await page.$('#rc-audio') !== null;
-        //       if (isAudioCaptcha) {
-        //         console.log('reCAPTCHA audio challenge Reload trang...');
-        //         await page.reload({ waitUntil: ['networkidle0', 'domcontentloaded'] });
-        //         await page.waitForTimeout(2000);
-        //         continue;
-        //       }
-
-        //       recaptchaSuccess = true;
-        //       break;
-        //     } else {
-        //       console.log('Khong tim thay iframe reCAPTCHA, thu lai...');
-        //       await page.waitForTimeout(2000);
-        //     }
-        //   } catch (e) {
-        //     console.log(' LOI TTHAO TAC reCAPTCHA:', e.message);
-        //     await page.waitForTimeout(2000);
-        //   }
-        // }
+        
         const ready = await waitForReady(page, 20); // thử 20 lần, mỗi lần cách 1 giây
         if (!ready) {
           recaptchaSuccess = true; // Không thao tác được reCAPTCHA
           console.log('🔁 Reload vì checkbox/search chưa sẵn sàng.');
           await page.reload({ waitUntil: ['networkidle0', 'domcontentloaded'] });
           await page.waitForTimeout(2000);
-          continue; // bỏ qua case
+          
+          process.exit(0);
         }else {
           recaptchaSuccess = true;
         }
@@ -652,10 +634,14 @@ try {
             process.send({ type: 'chrome-closed', data: { caseId, caseKey: caseNumber } });
             
           }
-          process.exit(1);
+          fs.copyFileSync(outputFilePath, destPath);
+          console.log('Đã copy file case_detail_gzip.txt ra Desktop:', destPath);
+          process.exit(0);
           
         } else {
           console.error('Loi khong xac dinh khi crawl:', err.message);
+          fs.copyFileSync(outputFilePath, destPath);
+          console.log('Đã copy file case_detail_gzip.txt ra Desktop:', destPath);
           process.exit(0);
         }
       }
@@ -681,11 +667,7 @@ await Promise.all(
 
   console.log('Đã crawl xong với tất cả profile!');
 
-  // Di chuyển file case_detail_gzip.txt ra Desktop (hoặc thư mục Download)
-  const now = new Date();
-  const timestamp = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + '_' + String(now.getHours()).padStart(2,'0') + '-' + String(now.getMinutes()).padStart(2,'0') + '-' + String(now.getSeconds()).padStart(2,'0');
-  const desktopDir = path.join(os.homedir(), 'Desktop');
-  const destPath = path.join(desktopDir, `case_detail_gzip_${timestamp}.txt`);
+  
   console.log('Đường dẫn Desktop:', desktopDir);
   try {
     fs.copyFileSync(outputFilePath, destPath);
